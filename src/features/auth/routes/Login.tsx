@@ -71,6 +71,12 @@ export const Login = () => {
       setSharedSecret(sharedSecretDapp);
       setSession(connectData.session);
       setPhantomWalletPublicKey(new PublicKey(connectData.public_key));
+
+      showToast({
+        title: 'Başarılı',
+        description: 'Cüzdana bağlanıldı',
+        type: 'success',
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +110,7 @@ export const Login = () => {
 const styles = StyleSheet.create({
   bottomContainer: {
     flex: 2,
-    backgroundColor: '#56cfe1',
+    backgroundColor: '#001f54',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    backgroundColor: '#5390d9',
+    backgroundColor: '#1282a2',
     justifyContent: 'center',
     flex: 1,
   },
@@ -124,7 +130,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    backgroundColor: '#5390d9',
+    backgroundColor: '#1282a2',
     justifyContent: 'center',
     alignItems: 'center',
   },
