@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Linking, Button} from 'react-native';
+import {View, Linking, StyleSheet, Text} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 import {Connection, PublicKey} from '@solana/web3.js';
@@ -7,6 +7,7 @@ import {Connection, PublicKey} from '@solana/web3.js';
 import {useWalletStore} from '@/stores';
 import {decryptPayload, connectToWallet, showToast} from '@/utils';
 import {NETWORK} from '@/config';
+import {CustomButton} from '@/features/auth/components';
 
 export const Login = () => {
   const connection = new Connection(NETWORK);
@@ -84,8 +85,47 @@ export const Login = () => {
   };
 
   return (
-    <View style={{backgroundColor: '#743'}}>
-      <Button title="connect" onPress={handleConnectToWallet} />
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Welcome</Text>
+      </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            onPress={handleConnectToWallet}
+            title="Connect to wallet"
+          />
+        </View>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomContainer: {
+    flex: 2,
+    backgroundColor: '#56cfe1',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  container: {
+    backgroundColor: '#5390d9',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 25,
+  },
+  titleContainer: {
+    flex: 1,
+    backgroundColor: '#5390d9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
