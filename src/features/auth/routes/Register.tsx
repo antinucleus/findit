@@ -1,33 +1,35 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
-import {Keypair, Connection, clusterApiUrl} from '@solana/web3.js';
+import React, {useEffect} from 'react';
+import {View, Text, Linking} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export const Register = () => {
-  const [keypair, setKeypair] = useState<Keypair>(() => Keypair.generate());
-  const randomKeypair = () => {
-    setKeypair(() => Keypair.generate());
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    Linking.getInitialURL()
+      .then(url => {
+        handleOpenURL(url);
+      })
+      .catch(err => console.log('Err:', err));
+
+    return () => {
+      Linking.removeSubscription('url');
+    };
+  }, []);
+
+  const handleOpenURL = event => {
+    navigate(event.url);
   };
 
-  const [version, setVersion] = useState<any>('');
-  useEffect(() => {
-    const conn = new Connection(clusterApiUrl('devnet'));
-    conn.getVersion().then(r => {
-      setVersion(r);
-    });
-  }, []);
-  return (
-    <View>
-      {version ? (
-        <View>
-          <Text>{JSON.stringify(version, null, 2)}</Text>
-        </View>
-      ) : null}
-      {keypair ? (
-        <View>
-          <Text>{JSON.stringify(keypair?.publicKey?.toBase58(), null, 2)}</Text>
-        </View>
-      ) : null}
-      <Button title="New Keypair" onPress={randomKeypair} />
-    </View>
-  );
+  const navigate = url => {
+    const route = url.replace(/.*?:\/\//g, '');
+    const id = route.match(/\/([^\/]+)\/?$/)[1];
+    const routeName = route.split('/')[0];
+
+    if (routeName === 'login') {
+      navigation.navigate('Login', {id, name: 'hello'});
+    }
+  };
+
+  return <Text>Hello from Register!</Text>;
 };

@@ -7,7 +7,7 @@ const {Navigator, Screen} = createNativeStackNavigator();
 
 export const Public = () => {
   return (
-    <Navigator initialRouteName="Register" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
       <Screen name="Register" component={Register} />
       <Screen name="Login" component={Login} />
     </Navigator>
