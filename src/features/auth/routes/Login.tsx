@@ -124,7 +124,7 @@ export const Login = () => {
 const styles = StyleSheet.create({
   bottomContainer: {
     flex: 2,
-    backgroundColor: '#001f54',
+    backgroundColor: '#eee',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    backgroundColor: '#1282a2',
+    backgroundColor: '#ff8500',
     justifyContent: 'center',
     flex: 1,
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    backgroundColor: '#1282a2',
+    backgroundColor: '#ff8500',
     justifyContent: 'center',
     alignItems: 'center',
   },

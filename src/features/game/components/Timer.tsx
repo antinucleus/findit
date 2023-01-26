@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Animated, {
   useSharedValue,
@@ -7,10 +7,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { useTime } from '../stores';
+import {useTime} from '../stores';
 
 export const Timer = () => {
-  const { time } = useTime();
+  const {time} = useTime();
 
   const [currentTime, setCurrentTime] = useState(time / 1000); // milliseconds to seconds
   const [timerDisplay, setTimerDisplay] = useState(true);
@@ -19,7 +19,7 @@ export const Timer = () => {
 
   const fontAnimatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ rotateY: `${fontScale.value}deg` }],
+      transform: [{rotateY: `${fontScale.value}deg`}],
     };
   });
 
@@ -44,7 +44,7 @@ export const Timer = () => {
   }, [currentTime]);
 
   return (
-    <View style={{ display: timerDisplay ? 'flex' : 'none' }}>
+    <View style={{display: timerDisplay ? 'flex' : 'none'}}>
       <Animated.Text style={[styles.time, fontAnimatedStyle]}>
         {currentTime}
       </Animated.Text>

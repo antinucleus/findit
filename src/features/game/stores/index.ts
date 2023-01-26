@@ -5,3 +5,4 @@ export {useHealth} from './health';
 export {useTime} from './time';
 export {useUserSelections} from './userSelections';
 export {useUserState} from './userState';
+export {useScore} from './score';

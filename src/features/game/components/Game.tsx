@@ -1,35 +1,47 @@
 import React, {useEffect, useLayoutEffect} from 'react';
+import {View, Text} from 'react-native';
 
 import {Episode} from './Episode';
-import {useHealth, useUserSelections, useUserState, useBox} from '../stores';
-import {resetStores} from '@/utils';
+import {
+  useHealth,
+  useUserSelections,
+  useUserState,
+  useBox,
+  useScore,
+} from '../stores';
+import {resetStores, levelData} from '@/utils';
 
 export const Game = () => {
   const {selectedIds, setRowsColumns} = useBox();
   const {health} = useHealth();
   const {userSelections} = useUserSelections();
   const {isWin, setisWin} = useUserState();
+  const {score, setScore} = useScore();
 
-  // useEffect(() => {
-  //   if (isWin) {
-  //     resetStores();
-  //     setRowsColumns({
-  //       rowCount: 4,
-  //       columnCount: 4,
-  //       selectableBoxCount: 1,
-  //       boxMargin: 10,
-  //     });
-  //     setisWin(false);
-  //   }
-  // }, [isWin]);
+  useEffect(() => {
+    if (isWin) {
+      setTimeout(() => {
+        resetStores();
+
+        setScore(score + 1);
+
+        console.log({score});
+
+        const data = levelData();
+
+        setRowsColumns(data);
+
+        setisWin(false);
+
+        console.log('Winner');
+      }, 1000);
+    }
+  }, [isWin, score]);
 
   useLayoutEffect(() => {
-    setRowsColumns({
-      rowCount: 5,
-      columnCount: 5,
-      selectableBoxCount: 6,
-      boxMargin: 5,
-    });
+    const data = levelData();
+
+    setRowsColumns(data);
   }, [setRowsColumns]);
 
   useEffect(() => {
@@ -46,5 +58,11 @@ export const Game = () => {
       setisWin(true);
     }
   }, [userSelections, setisWin, selectedIds, setRowsColumns]);
-  return <Episode />;
+  return isWin ? (
+    <View>
+      <Text>Loading</Text>
+    </View>
+  ) : (
+    <Episode />
+  );
 };

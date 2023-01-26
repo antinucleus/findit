@@ -10,7 +10,7 @@ type Actions = {
 };
 
 const initialState: State = {
-  time: 3 * 1000, // 3000 ms
+  time: 1 * 1000, // 3000 ms
 };
 
 export const useTime = create<State & Actions>(set => ({
