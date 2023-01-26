@@ -1,17 +1,35 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {View, Linking, StyleSheet, Text} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 import {PublicKey} from '@solana/web3.js';
 
-import {useAuthStore, useWalletStore, useDeepLinkStore} from '@/stores';
-import {decryptPayload, connectToWallet, showToast} from '@/utils';
+import {
+  useAuthStore,
+  useWalletStore,
+  useDeepLinkStore,
+  useUserStore,
+} from '@/stores';
+import {decryptPayload, connectToWallet, showToast, getUsername} from '@/utils';
 import {CustomButton} from '@/features/auth/components';
 
 export const Login = () => {
   const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();
   const {deepLink, setDeepLink} = useDeepLinkStore();
   const {setPhantomWalletPublicKey} = useWalletStore();
+  const {setUser} = useUserStore();
+
+  useLayoutEffect(() => {
+    const get = async () => {
+      const username = await getUsername();
+
+      if (username) {
+        setUser(username);
+      }
+    };
+
+    get();
+  }, []);
 
   useEffect(() => {
     const getInitialUrl = async () => {

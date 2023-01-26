@@ -10,3 +10,4 @@ export {selectColor} from './selectColor';
 export {calculateBoxSizes} from './calculateBoxSizes';
 export {resetStores} from './resetStores';
 export {getUsername, setUsername, resetUsername} from './storage';
+export {formatPublicKey} from './formatPublicKey';
