@@ -1,0 +1,1 @@
+export {signAndSendTransaction} from './signAndSendTransaction';

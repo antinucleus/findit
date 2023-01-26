@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, Linking, StyleSheet, Text} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
-import {Connection, PublicKey} from '@solana/web3.js';
+import {PublicKey} from '@solana/web3.js';
 
-import {useWalletStore} from '@/stores';
+import {useAuthStore, useWalletStore, useDeepLinkStore} from '@/stores';
 import {decryptPayload, connectToWallet, showToast} from '@/utils';
-import {NETWORK} from '@/config';
 import {CustomButton} from '@/features/auth/components';
 
 export const Login = () => {
-  const connection = new Connection(NETWORK);
-  const [deepLink, setDeepLink] = useState<string>('');
-  const [dappKeyPair] = useState(nacl.box.keyPair());
-  const [sharedSecret, setSharedSecret] = useState<Uint8Array>();
-  const [session, setSession] = useState<string | undefined>();
+  const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();
+  const {deepLink, setDeepLink} = useDeepLinkStore();
+
   const {setPhantomWalletPublicKey} = useWalletStore();
 
   useEffect(() => {
@@ -47,8 +44,8 @@ export const Login = () => {
 
       if (entries.errorCode === '4001') {
         showToast({
-          title: 'Hata',
-          description: 'Kullanıcı isteği reddetti',
+          title: 'Error',
+          description: 'User rejected request',
           type: 'error',
         });
 
@@ -73,8 +70,8 @@ export const Login = () => {
       setPhantomWalletPublicKey(new PublicKey(connectData.public_key));
 
       showToast({
-        title: 'Başarılı',
-        description: 'Cüzdana bağlanıldı',
+        title: 'Success',
+        description: 'Connected to wallet',
         type: 'success',
       });
     }

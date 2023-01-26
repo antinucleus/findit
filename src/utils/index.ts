@@ -4,3 +4,4 @@ export {buildUrl} from './buildUrl';
 export {connectToWallet} from './connectToWallet';
 export {disconnectFromWallet} from './disconnectFromWallet';
 export {showToast} from './toast';
+export {createTransferTransaction} from './createTransferTransaction';
