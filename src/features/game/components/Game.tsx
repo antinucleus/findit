@@ -1,14 +1,14 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 
-import { Episode } from './Episode';
-import { useHealth, useUserSelections, useUserState, useBox } from '../stores';
-import { resetStores } from '@/utils';
+import {Episode} from './Episode';
+import {useHealth, useUserSelections, useUserState, useBox} from '../stores';
+import {resetStores} from '@/utils';
 
 export const Game = () => {
-  const { selectedIds, setRowsColumns } = useBox();
-  const { health } = useHealth();
-  const { userSelections } = useUserSelections();
-  const { isWin, setisWin } = useUserState();
+  const {selectedIds, setRowsColumns} = useBox();
+  const {health} = useHealth();
+  const {userSelections} = useUserSelections();
+  const {isWin, setisWin} = useUserState();
 
   // useEffect(() => {
   //   if (isWin) {

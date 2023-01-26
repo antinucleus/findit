@@ -11,7 +11,6 @@ import {CustomButton} from '@/features/auth/components';
 export const Login = () => {
   const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();
   const {deepLink, setDeepLink} = useDeepLinkStore();
-
   const {setPhantomWalletPublicKey} = useWalletStore();
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export const Login = () => {
       if (entries.errorCode === '4001') {
         showToast({
           title: 'Error',
-          description: 'User rejected request',
+          description: 'User rejected the request',
           type: 'error',
         });
 

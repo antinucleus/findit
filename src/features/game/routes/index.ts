@@ -1,2 +1,2 @@
-export { Main } from './Main';
-export { Other } from './Other';
+export {Main} from './Main';
+export {Landing} from './Landing';

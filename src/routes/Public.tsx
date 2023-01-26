@@ -2,8 +2,10 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Login} from '@/features/auth/routes';
+import {PublicRoutesStackParamList} from '@/types';
 
-const {Navigator, Screen} = createNativeStackNavigator();
+const {Navigator, Screen} =
+  createNativeStackNavigator<PublicRoutesStackParamList>();
 
 export const Public = () => {
   return (

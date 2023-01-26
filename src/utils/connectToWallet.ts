@@ -1,8 +1,9 @@
 import bs58 from 'bs58';
 import {BoxKeyPair} from 'tweetnacl';
+import {Linking} from 'react-native';
+
 import {onConnectRedirectLink, NetworkName} from '@/config';
 import {buildUrl} from './buildUrl';
-import {Linking} from 'react-native';
 
 export const connectToWallet = async (dappKeyPair: BoxKeyPair) => {
   const params = new URLSearchParams({
