@@ -1,15 +1,30 @@
 import bs58 from 'bs58';
 import {Linking} from 'react-native';
 
-import {createTransferTransaction, encryptPayload, buildUrl} from '@/utils';
+import {
+  createTransferTransaction,
+  encryptPayload,
+  buildUrl,
+  showToast,
+} from '@/utils';
 import {onSignAndSendTransactionRedirectLink} from '@/config';
 import {useAuthStore} from '@/stores';
+import {SendData} from '@/types';
 
-export const signAndSendTransaction = async () => {
+export const signAndSendTransaction = async (data: SendData) => {
   const {session, sharedSecret, dappKeyPair} = useAuthStore.getState();
 
-  const transaction = await createTransferTransaction();
+  const transaction = await createTransferTransaction(data);
 
+  if (!transaction) {
+    showToast({
+      title: 'Error',
+      description: 'Transaction creation error',
+      type: 'error',
+    });
+
+    return;
+  }
   const serializedTransaction = transaction.serialize({
     requireAllSignatures: false,
   });
@@ -28,7 +43,6 @@ export const signAndSendTransaction = async () => {
     payload: bs58.encode(encryptedPayload),
   });
 
-  console.log('Sending transaction...');
   const url = buildUrl('signAndSendTransaction', params);
   Linking.openURL(url);
 };

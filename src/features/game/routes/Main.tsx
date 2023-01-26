@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 
-// import {PROGRAM_ID} from '@/config';
 import {useDeepLinkStore, useAuthStore} from '@/stores';
 import {showToast, decryptPayload} from '@/utils';
 import {signAndSendTransaction} from '../api';
 import {CustomButton} from '@/features/auth/components';
+import {SendData} from '@/types';
 
 export const Main = () => {
   const {deepLink} = useDeepLinkStore();
@@ -45,10 +45,14 @@ export const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deepLink]);
 
+  const handleSignAndSendTransaction = async () => {
+    // await signAndSendTransaction(data);
+  };
+
   return (
     <View>
       <Text>Main</Text>
-      <CustomButton onPress={signAndSendTransaction} title="Send transaction" />
+      <CustomButton onPress={() => {}} title="Send transaction" />
     </View>
   );
 };

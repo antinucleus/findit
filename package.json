@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@project-serum/borsh": "^0.2.5",
     "@react-native-community/netinfo": "^9.3.7",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
