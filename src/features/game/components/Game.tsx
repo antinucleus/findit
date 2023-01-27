@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import Modal from 'react-native-modal';
+import {View, Text, StyleSheet} from 'react-native';
 
 import {Episode} from './Episode';
 import {
@@ -12,7 +14,7 @@ import {
   useGameState,
 } from '../stores';
 import {resetStores, levelData} from '@/utils';
-import {Loading} from '@/components';
+import {CustomButton, Loading} from '@/components';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 
 export const Game = () => {
@@ -22,6 +24,7 @@ export const Game = () => {
   const {isWin, setisWin} = useUserState();
   const {score, setScore} = useScore();
   const {setisStarted} = useGameState();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
 
@@ -36,12 +39,14 @@ export const Game = () => {
 
         const data = levelData();
 
-        setRowsColumns(data);
+        if (data.columnCount === 0 && data.rowCount === 0) {
+          setShowModal(true);
+        } else {
+          setRowsColumns(data);
 
-        setisWin(false);
-
-        console.log('Winner');
-      }, 1000);
+          setisWin(false);
+        }
+      }, 100);
     }
   }, [isWin, score]);
 
@@ -71,11 +76,40 @@ export const Game = () => {
     }
   }, [userSelections, setisWin, selectedIds, setRowsColumns]);
 
-  useEffect(() => {
-    navigation.addListener('beforeRemove', e => {
-      e.preventDefault();
-    });
-  }, [navigation]);
+  const handleNavigateMain = () => navigation.navigate('Landing');
 
-  return isWin ? <Loading /> : <Episode />;
+  return isWin ? (
+    <Loading />
+  ) : (
+    <View>
+      <Modal
+        backdropColor="#CED4DA"
+        backdropOpacity={0.7}
+        animationIn="zoomInDown"
+        animationOut="zoomOutUp"
+        animationInTiming={2000}
+        animationOutTiming={600}
+        backdropTransitionInTiming={600}
+        backdropTransitionOutTiming={600}
+        isVisible={showModal}>
+        <View style={styles.container}>
+          <Text style={styles.winText}>You won!!</Text>
+          <CustomButton title="Main Page" onPress={handleNavigateMain} />
+        </View>
+      </Modal>
+      <Episode />
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  winText: {
+    color: '#000',
+    fontSize: 22,
+  },
+});

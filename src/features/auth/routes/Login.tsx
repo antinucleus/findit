@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, Linking, StyleSheet, Text} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
@@ -11,13 +11,14 @@ import {
   useUserStore,
 } from '@/stores';
 import {decryptPayload, connectToWallet, showToast, getUsername} from '@/utils';
-import {CustomButton} from '@/components';
+import {CustomButton, Chip, Loading} from '@/components';
 
 export const Login = () => {
   const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();
   const {deepLink, setDeepLink} = useDeepLinkStore();
   const {setPhantomWalletPublicKey} = useWalletStore();
-  const {setUser} = useUserStore();
+  const {user, setUser} = useUserStore();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useLayoutEffect(() => {
     const get = async () => {
@@ -97,26 +98,44 @@ export const Login = () => {
   }, [deepLink]);
 
   const handleConnectToWallet = async () => {
+    setLoading(true);
     try {
       await connectToWallet(dappKeyPair);
+      setLoading(false);
     } catch (error) {
-      console.log('Error occured:', error);
+      showToast({
+        title: 'Error',
+        description: 'Error occured while connectting to wallet',
+        type: 'error',
+      });
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.title}>Find It</Text>
       </View>
-      <View style={styles.bottomContainer}>
-        <View style={styles.buttonContainer}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <View style={styles.bottomContainer}>
+          {user ? (
+            <View>
+              <Text style={styles.welcomeText}>Welcome</Text>
+              <Chip children={user || ''} />
+            </View>
+          ) : (
+            <></>
+          )}
+
           <CustomButton
             onPress={handleConnectToWallet}
             title="Connect to wallet"
           />
         </View>
-      </View>
+      )}
     </View>
   );
 };
@@ -124,17 +143,15 @@ export const Login = () => {
 const styles = StyleSheet.create({
   bottomContainer: {
     flex: 2,
-    backgroundColor: '#eee',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: '#023e8a',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
-  buttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
+  buttonContainer: {},
   container: {
-    backgroundColor: '#ff8500',
+    backgroundColor: '#0096c7',
     justifyContent: 'center',
     flex: 1,
   },
@@ -144,8 +161,13 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    backgroundColor: '#ff8500',
+    backgroundColor: '#0096c7',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  welcomeText: {
+    color: '#fff',
+    fontSize: 25,
+    marginVertical: 15,
   },
 });

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {View, StyleSheet} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -26,8 +25,11 @@ export const Timer = () => {
   function updateRemainingTime(remainingTime: number) {
     let currentRemainingTime = remainingTime;
     currentRemainingTime--;
+
     if (currentRemainingTime === 0) {
       setTimerDisplay(false);
+    } else {
+      setTimerDisplay(true);
     }
     setCurrentTime(currentRemainingTime);
     fontScale.value = withTiming(currentRemainingTime % 2 === 0 ? 360 : 0, {
@@ -48,11 +50,6 @@ export const Timer = () => {
       <Animated.Text style={[styles.time, fontAnimatedStyle]}>
         {currentTime}
       </Animated.Text>
-      <TouchableOpacity>
-        <View>
-          <Icon name="rocket" color="blue" size={20} />
-        </View>
-      </TouchableOpacity>
     </View>
   );
 };

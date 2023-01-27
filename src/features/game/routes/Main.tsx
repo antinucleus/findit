@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-import {Game, Health, Timer} from '../components';
+import {Game, Health} from '../components';
 
 export const Main = () => {
   return (
@@ -9,9 +9,9 @@ export const Main = () => {
       <View style={styles.health}>
         <Health />
       </View>
-      <View style={styles.timer}>
+      {/* <View style={styles.timer}>
         <Timer />
-      </View>
+      </View> */}
       <View style={styles.game}>
         <Game />
       </View>

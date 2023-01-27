@@ -1,21 +1,39 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Linking} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {useScore} from '../stores';
 import {Loading, CustomButton} from '@/components';
 import {useDeepLinkStore, useAuthStore, useUserStore} from '@/stores';
 import {showToast, decryptPayload} from '@/utils';
 import {signAndSendTransaction} from '../api';
-import {SendData} from '@/types';
+import {SendData, PrivateRoutesScreenNavigationProp} from '@/types';
 
 export const Result = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
 
-  const {deepLink} = useDeepLinkStore();
+  const {deepLink, setDeepLink} = useDeepLinkStore();
   const {sharedSecret} = useAuthStore();
   const {user} = useUserStore();
   const {score} = useScore();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getInitialUrl = async () => {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) {
+        setDeepLink(initialUrl);
+      }
+    };
+
+    getInitialUrl();
+
+    Linking.addEventListener('url', ({url}) => setDeepLink(url));
+
+    return () => {
+      Linking.removeAllListeners('url');
+    };
+  }, []);
 
   useEffect(() => {
     if (!deepLink) {
@@ -26,7 +44,6 @@ export const Result = () => {
     const params = url.searchParams;
 
     if (params.get('errorCode')) {
-      console.log('Errr');
       const entries: {[k: string]: string} = Object.fromEntries([...params]);
 
       if (entries.errorCode === '4001') {
@@ -41,58 +58,96 @@ export const Result = () => {
     }
 
     if (/onSignAndSendTransaction/.test(url.pathname)) {
-      const signAndSendTransactionData = decryptPayload(
-        params.get('data')!,
-        params.get('nonce')!,
-        sharedSecret,
-      );
+      decryptPayload(params.get('data')!, params.get('nonce')!, sharedSecret);
 
-      console.log(JSON.stringify(signAndSendTransactionData, null, 2));
+      showToast({
+        title: 'Success',
+        description: 'Score saved successfully',
+        type: 'success',
+      });
+
+      setTimeout(() => {
+        navigation.navigate('Landing');
+      }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deepLink]);
 
-  useEffect(() => {
-    navigation.addListener('beforeRemove', e => {
-      e.preventDefault();
-    });
-  }, [navigation]);
-
   const handleSendData = async () => {
     if (score && user) {
+      setLoading(true);
       const data: SendData = {
         score,
         username: user,
         time: new Date().getTime().toString(),
       };
-      console.log({data});
 
       try {
         await signAndSendTransaction(data);
       } catch (error) {
-        console.log('Error : ', error);
+        showToast({
+          title: 'Error',
+          description: 'Error occured while sending transaction',
+          type: 'error',
+        });
       }
+      setLoading(false);
     } else {
       showToast({
         title: 'Missing information',
-        description: 'Username or score are not fond',
+        description: 'Username or score are not found',
         type: 'error',
       });
+      setLoading(false);
     }
+  };
+
+  const handleNavigateLandingPage = () => {
+    navigation.navigate('Landing');
   };
 
   return (
     <View style={styles.container}>
-      <Text>Score : {score} </Text>
-      <CustomButton onPress={handleSendData} title="Save Score" />
-      <Text>or</Text>
-      <CustomButton title="Go Main Page" />
+      <View style={styles.scoreTextContainer}>
+        <Text style={styles.scoreText}>Your Score {score} </Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          disabled={loading}
+          onPress={handleSendData}
+          title="Save score"
+        />
+        <Text style={styles.orText}>or</Text>
+        <CustomButton
+          disabled={loading}
+          onPress={handleNavigateLandingPage}
+          title="Go main page"
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
+    backgroundColor: '#457b9d',
+    flex: 1,
+  },
+  orText: {
+    marginVertical: 10,
+    color: '#fff',
+    fontSize: 18,
+  },
+  scoreText: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  scoreTextContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

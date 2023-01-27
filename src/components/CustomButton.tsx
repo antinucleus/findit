@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 50,
-    paddingVertical: 3,
+    paddingVertical: 7,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#FFF',
   },
 });

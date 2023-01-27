@@ -12,6 +12,6 @@ export const showToast = ({title, description, type}: Params) =>
     text2: description || ' ',
     type,
     autoHide: true,
-    visibilityTime: 7 * 1000,
+    visibilityTime: 5 * 1000, // 5000 ms
     position: 'bottom',
   });
