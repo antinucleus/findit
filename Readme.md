@@ -29,7 +29,7 @@
 - When enter your username start button will be active. After that the game will be start
 
 ## The Logic of The Game
-- Game shows you box collecttions for each level and some of this box has green color. You have to memorize this boxes
+- Game shows you box collecttions for each level and some of this box has green color. You have to memorize these boxes
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/memorized-boxes.png" width="250" height="500"/>
 
@@ -46,7 +46,7 @@
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/score-screen.png" width="250" height="500"/>
 
-- If you press save score button , app redirect you to Pahtom waller. If you approve your score will be stored on solana network
+- If you press save score button, app redirect you to Pahtom wallet. If you approve your score will be stored on solana network
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/approve-saving-score.png" width="250" height="500"/>
 
