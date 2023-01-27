@@ -1,12 +1,12 @@
-import { StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {StyleSheet, TouchableHighlight, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
 
-import { useBoxState, useHealth, useBox } from '../stores';
+import {useBoxState, useHealth, useBox} from '../stores';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -16,10 +16,10 @@ type Props = {
   disableClick: boolean;
 };
 
-export const Box = ({ id, color, disableClick }: Props) => {
-  const { markedId, setMarkedId } = useBoxState();
-  const { health, isDecreased } = useHealth();
-  const { boxHeight, boxWidth, boxMargin } = useBox();
+export const Box = ({id, color, disableClick}: Props) => {
+  const {markedId, setMarkedId} = useBoxState();
+  const {health, isDecreased} = useHealth();
+  const {boxHeight, boxWidth, boxMargin} = useBox();
 
   const [disableSelf, setDisableSelf] = useState(false);
 
@@ -35,7 +35,7 @@ export const Box = ({ id, color, disableClick }: Props) => {
         {
           scaleY: boxScale.value,
         },
-        { translateX: boxTranslate.value },
+        {translateX: boxTranslate.value},
       ],
     };
   });
@@ -51,7 +51,7 @@ export const Box = ({ id, color, disableClick }: Props) => {
     }
 
     if (isDecreased && markedId === id && boxScale.value === 1) {
-      boxScale.value = withTiming(0, { duration: 300 });
+      boxScale.value = withTiming(0, {duration: 300});
       setDisableSelf(true);
     }
   }, [isDecreased, boxScale, markedId, id, health, boxTranslate]);
@@ -68,11 +68,10 @@ export const Box = ({ id, color, disableClick }: Props) => {
       onPress={handleOnPress}
       style={[
         styles.container,
-        { width: boxWidth, height: boxHeight, margin: boxMargin },
-      ]}
-    >
+        {width: boxWidth, height: boxHeight, margin: boxMargin},
+      ]}>
       <Animated.View
-        style={[styles.inside, boxAnimatedStyle, { backgroundColor: color }]}
+        style={[styles.inside, boxAnimatedStyle, {backgroundColor: color}]}
       />
     </TouchableHighlight>
   );

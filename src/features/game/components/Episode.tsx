@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 
-import { BoxCollection } from './BoxCollection';
+import {BoxCollection} from './BoxCollection';
 import {
   useHealth,
   useTime,
@@ -9,15 +9,15 @@ import {
   useUserSelections,
   useBox,
 } from '../stores';
-import { selectColor } from '@/utils';
+import {selectColor} from '@/utils';
 
 export const Episode = () => {
-  const { decreaseHealth, setIsDecreased } = useHealth();
-  const { time } = useTime();
-  const { isStarted, setisStarted } = useGameState();
-  const { markedId } = useBoxState();
-  const { userSelections, setUserSelections } = useUserSelections();
-  const { selectedIds } = useBox();
+  const {decreaseHealth, setIsDecreased} = useHealth();
+  const {time} = useTime();
+  const {isStarted, setisStarted} = useGameState();
+  const {markedId} = useBoxState();
+  const {userSelections, setUserSelections} = useUserSelections();
+  const {selectedIds} = useBox();
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,6 +42,7 @@ export const Episode = () => {
         }, 300);
       } else {
         const currentUserSelections = [...userSelections];
+
         if (!currentUserSelections.includes(markedId)) {
           currentUserSelections.push(markedId);
           setUserSelections(currentUserSelections);
@@ -50,5 +51,5 @@ export const Episode = () => {
     }
   }, [markedId]);
 
-  return <BoxCollection setColor={(id) => selectColor({ id })} />;
+  return <BoxCollection setColor={id => selectColor({id})} />;
 };

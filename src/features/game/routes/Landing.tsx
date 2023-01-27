@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useWalletStore, useUserStore} from '@/stores';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
-import {formatPublicKey, setUsername} from '@/utils';
+import {formatPublicKey, setUsername, resetStores} from '@/utils';
 import {Chip} from '../components';
 
 export const Landing = () => {
@@ -18,7 +18,6 @@ export const Landing = () => {
   const [input, setInput] = useState<string>();
   const {phantomWalletPublicKey} = useWalletStore();
   const {user} = useUserStore();
-  const [loading, setLoading] = useState<boolean>(false);
 
   useLayoutEffect(() => {
     if (user) {
@@ -26,15 +25,17 @@ export const Landing = () => {
     }
   }, []);
 
-  const handleGoInside = async () => {
-    if (input) {
+  const handleStartGame = async () => {
+    if (!user && input) {
       try {
         await setUsername(input);
-        navigation.navigate('Main');
       } catch (error) {
         console.log('Error:', error);
       }
     }
+
+    resetStores();
+    navigation.navigate('Main');
   };
 
   const handleUsernameChange = (text: string) => setInput(text);
@@ -60,7 +61,7 @@ export const Landing = () => {
         />
       )}
 
-      <TouchableOpacity disabled={!input} onPress={handleGoInside}>
+      <TouchableOpacity disabled={!input} onPress={handleStartGame}>
         <View
           style={[
             styles.textContainer,
