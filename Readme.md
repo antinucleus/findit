@@ -29,7 +29,7 @@
 - When enter your username start button will be active. After that the game will be start
 
 ## The Logic of The Game
-- Game shows you box collecttions for each level and some of this box has yellow color. You have to memorize this boxes
+- Game shows you box collecttions for each level and some of this box has green color. You have to memorize this boxes
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/memorized-boxes.png" width="250" height="500"/>
 
