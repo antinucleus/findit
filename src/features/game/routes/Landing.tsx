@@ -12,6 +12,7 @@ import {useWalletStore, useUserStore} from '@/stores';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 import {formatPublicKey, setUsername, resetStores} from '@/utils';
 import {Chip} from '../components';
+import {CustomButton} from '@/components';
 
 export const Landing = () => {
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
@@ -61,15 +62,7 @@ export const Landing = () => {
         />
       )}
 
-      <TouchableOpacity disabled={!input} onPress={handleStartGame}>
-        <View
-          style={[
-            styles.textContainer,
-            {backgroundColor: input ? '#00f' : '#343a40'},
-          ]}>
-          <Text style={styles.startText}>Start</Text>
-        </View>
-      </TouchableOpacity>
+      <CustomButton disabled={!input} onPress={handleStartGame} title="Start" />
     </View>
   );
 };
@@ -81,22 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#5390D9',
-  },
-  startText: {
-    fontSize: 18,
-    color: '#FFF',
-  },
-  textContainer: {
-    padding: 5,
-    borderRadius: 10,
-    width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 20,
-    color: '#FFF',
   },
   usernameTextInput: {
     padding: 10,

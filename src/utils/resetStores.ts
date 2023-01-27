@@ -9,7 +9,11 @@ import {
   useHealth,
 } from '@/features/game/stores';
 
-export const resetStores = () => {
+type Parameters = {
+  health?: boolean;
+};
+
+export const resetStores = (params?: Parameters) => {
   useBox.getState().reset();
   useBoxState.getState().reset();
   useGameState.getState().reset();
@@ -17,5 +21,8 @@ export const resetStores = () => {
   useUserSelections.getState().reset();
   useUserState.getState().reset();
   useScore.getState().reset();
-  useHealth.getState().reset();
+
+  if (!params?.health) {
+    useHealth.getState().reset();
+  }
 };

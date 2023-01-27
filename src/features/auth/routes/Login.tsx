@@ -11,7 +11,7 @@ import {
   useUserStore,
 } from '@/stores';
 import {decryptPayload, connectToWallet, showToast, getUsername} from '@/utils';
-import {CustomButton} from '@/features/auth/components';
+import {CustomButton} from '@/components';
 
 export const Login = () => {
   const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();

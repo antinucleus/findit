@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useLayoutEffect} from 'react';
-import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {Episode} from './Episode';
@@ -13,6 +12,7 @@ import {
   useGameState,
 } from '../stores';
 import {resetStores, levelData} from '@/utils';
+import {Loading} from '@/components';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 
 export const Game = () => {
@@ -28,7 +28,7 @@ export const Game = () => {
   useEffect(() => {
     if (isWin) {
       setTimeout(() => {
-        resetStores();
+        resetStores({health: true});
 
         setScore(score + 1);
 
@@ -55,7 +55,10 @@ export const Game = () => {
     if (health === 0) {
       setisWin(false);
       setisStarted(false);
-      navigation.navigate('Landing');
+
+      setTimeout(() => {
+        navigation.navigate('Result');
+      }, 500);
     }
   }, [health, setisWin]);
 
@@ -68,11 +71,11 @@ export const Game = () => {
     }
   }, [userSelections, setisWin, selectedIds, setRowsColumns]);
 
-  return isWin ? (
-    <View>
-      <Text>Loading</Text>
-    </View>
-  ) : (
-    <Episode />
-  );
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+  }, [navigation]);
+
+  return isWin ? <Loading /> : <Episode />;
 };
