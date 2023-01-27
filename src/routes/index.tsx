@@ -6,6 +6,6 @@ import {useWalletStore} from '@/stores';
 export const Routes = () => {
   const {phantomWalletPublicKey} = useWalletStore();
 
-  // return phantomWalletPublicKey ? <Private /> : <Public />;
-  return <Private />;
+  return phantomWalletPublicKey ? <Private /> : <Public />;
+  // return <Private />;
 };

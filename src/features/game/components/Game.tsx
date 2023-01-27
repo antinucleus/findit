@@ -58,7 +58,7 @@ export const Game = () => {
 
       setTimeout(() => {
         navigation.navigate('Result');
-      }, 500);
+      }, 700);
     }
   }, [health, setisWin]);
 

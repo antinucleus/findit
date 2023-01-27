@@ -27,6 +27,7 @@ export const createTransferTransaction = async (data: SendData) => {
     borsh.u8('operation'),
     borsh.str('username'),
     borsh.u8('score'),
+    borsh.str('time'),
   ]);
 
   const buffer = Buffer.alloc(1000);
@@ -44,7 +45,11 @@ export const createTransferTransaction = async (data: SendData) => {
   const transaction = new Transaction();
 
   const [pda] = await PublicKey.findProgramAddress(
-    [phantomWalletPublicKey.toBuffer(), Buffer.from(data.username)],
+    [
+      phantomWalletPublicKey.toBuffer(),
+      Buffer.from(data.username),
+      Buffer.from(data.time),
+    ],
     PROGRAM_ID,
   );
 

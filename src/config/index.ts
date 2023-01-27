@@ -3,7 +3,7 @@ import {clusterApiUrl, PublicKey, Connection} from '@solana/web3.js';
 const URI = 'findit://wallet';
 
 export const PROGRAM_ID = new PublicKey(
-  '2HtmpzThK8Su7fUH47gaG7h3RzutF7Kb8W5bnY9vGA2P',
+  '8Ha1HELQHNZfHxjpkbbMn9Zuvc1VwAU82PeHEJPeLJAB',
 );
 
 export const NetworkName = 'devnet';
