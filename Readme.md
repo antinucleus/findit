@@ -7,11 +7,15 @@
 - If you want to deploy smart-contract of this app on local, you can access from [here](https://github.com/antinucleus/findit-solana-smart-contract)
 
 ## How can you install it ?
+> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases/tag/v0.1.0)
+
+> Or you can clone this repo
+
 - Clone repo to your machine
 - Run this command `yarn install` or `yarn` 
 - After that run this command `yarn start` and it will start **metro** after that type `a` or open another terminal and run this command `yarn android`
 
-## How To Play
+## How To Play ?
 - First you have to connect your wallet to app
 - Press connect to wallet button
 - If Phantom wallet installed on your device it will ask for connection
