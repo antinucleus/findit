@@ -6,7 +6,7 @@
 - The smart-contract deployed to devnet
 - If you want to deploy smart-contract of this app on local, you can access from [here](https://github.com/antinucleus/findit-solana-smart-contract)
 
-## How do you install it ?
+## How can you install it ?
 - Clone repo to your machine
 - Run this command `yarn install` or `yarn` 
 - After that run this command `yarn start` and it will start **metro** after that type `a` or open another terminal and run this command `yarn android`
