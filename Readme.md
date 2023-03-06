@@ -19,6 +19,11 @@
 - You have to install Phantom wallet on your device and **set Phantom wallet network to devnet**
 - Also you should have SOL in your account. For testing you can import this private key to Phantom wallet
 `2tURF4eRVVBYMX7yrs5o6skd9FDpK1nP4UZx3EaSKPGEb8yPFPL6ieJYxGE8hQRABwE3o3bNjm4yph7evVsBwCts`
+- You can access this key by scannig the QR code 
+<div align="center">
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/wallet-address-for-test.png" width="150" height="150"/>
+</div>
+
 - After that run the findit game
 - Press connect to wallet button
 - If Phantom wallet is installed on your device, app will ask for connection
