@@ -7,26 +7,34 @@
 - If you want to deploy smart-contract of this app on local, you can access from [here](https://github.com/antinucleus/findit-solana-smart-contract)
 
 ## How can you install it ?
+> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases/tag/v0.1.0)
+
+> Or you can clone this repo
+
 - Clone repo to your machine
 - Run this command `yarn install` or `yarn` 
 - After that run this command `yarn start` and it will start **metro** after that type `a` or open another terminal and run this command `yarn android`
 
-## How To Play
-- First you have to connect your wallet to app
+## How To Play ?
+- You have to install Phantom wallet on your device and **set Phantom wallet network to devnet**
+- Also you should have SOL in your account. For testing you can import this private key to Phantom wallet
+`2tURF4eRVVBYMX7yrs5o6skd9FDpK1nP4UZx3EaSKPGEb8yPFPL6ieJYxGE8hQRABwE3o3bNjm4yph7evVsBwCts`
+- After that run the findit game
 - Press connect to wallet button
-- If Phantom wallet installed on your device it will ask for connection
+- If Phantom wallet is installed on your device, app will ask for connection
+
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/connect-wallet.png" width="250" height="500"/>
 
-- If not installed,app redirects download link
-- After connection,for first time you have to enter your username
+- If not installed,app redirects you to download link
+- After connection, for first time you have to enter your username
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/enter-user-name.png" width="250" height="500"/>
 
-- Later plays it automatically read from storage
+- Your username will be automatically read from the store in the next use
 
 <img src="https://github.com/antinucleus/repo-medias/blob/main/findit/later-start.png" width="250" height="500"/>
 
-- When enter your username start button will be active. After that the game will be start
+- When enter your username start button will be active. Press start button and play the game
 
 ## The Logic of The Game
 - Game shows you box collecttions for each level and some of this box has green color. You have to memorize these boxes
