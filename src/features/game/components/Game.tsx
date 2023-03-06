@@ -2,7 +2,7 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Modal from 'react-native-modal';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import {Episode} from './Episode';
 import {
@@ -14,7 +14,7 @@ import {
   useGameState,
 } from '../stores';
 import {resetStores, levelData} from '@/utils';
-import {CustomButton, Loading} from '@/components';
+import {CustomButton, CustomText, Loading} from '@/components';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 
 export const Game = () => {
@@ -93,7 +93,7 @@ export const Game = () => {
         backdropTransitionOutTiming={600}
         isVisible={showModal}>
         <View style={styles.container}>
-          <Text style={styles.winText}>You won!!</Text>
+          <CustomText style={styles.winText}>You won!!</CustomText>
           <CustomButton title="Main Page" onPress={handleNavigateMain} />
         </View>
       </Modal>

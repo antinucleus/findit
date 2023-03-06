@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/CrimsonText-Bold.ttf",
+      "sha1": "4079be58c5ebc634879a096cc63ad82d858ed2c9"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-BoldItalic.ttf",
+      "sha1": "3c95d9a60acd07e8fad552b6c7d4789cf5e306d7"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-Italic.ttf",
+      "sha1": "f92c8ec809dbc2d804ad60dcf391e4a128eed08f"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-Regular.ttf",
+      "sha1": "61b3f0d113dcf62c7619aff1bae3a6646286720b"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-SemiBold.ttf",
+      "sha1": "12d88291e2b1d9db88e6039f08b71864887aa5ca"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-SemiBoldItalic.ttf",
+      "sha1": "1104b7da57b8969ffb9bf1707960497dedacc61a"
+    }
+  ]
+}

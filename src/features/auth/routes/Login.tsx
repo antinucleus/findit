@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, Linking, StyleSheet, Text, Dimensions} from 'react-native';
+import {View, Linking, StyleSheet, Dimensions} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 import {PublicKey} from '@solana/web3.js';
@@ -11,7 +11,7 @@ import {
   useUserStore,
 } from '@/stores';
 import {decryptPayload, connectToWallet, showToast, getUsername} from '@/utils';
-import {CustomButton, Chip, Loading} from '@/components';
+import {CustomButton, Chip, Loading, CustomText} from '@/components';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -149,7 +149,7 @@ export const Login = () => {
   return (
     <Animated.View style={[styles.container, containerBackgroundAnimation]}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Find It</Text>
+        <CustomText style={styles.title}>Find It</CustomText>
       </View>
       {loading ? (
         <Loading />
@@ -157,7 +157,7 @@ export const Login = () => {
         <View style={styles.bottomContainer}>
           {user ? (
             <View>
-              <Text style={styles.welcomeText}>Welcome</Text>
+              <CustomText style={styles.welcomeText}>Welcome</CustomText>
               <Chip children={user || ''} />
             </View>
           ) : (
@@ -191,8 +191,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
+    fontFamily: 'CrimsonText-Regular',
     color: '#fff',
-    fontSize: 24,
+    fontSize: 50,
   },
   titleContainer: {
     flex: 1,

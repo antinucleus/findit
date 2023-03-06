@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useScore} from '../stores';
-import {Score, CustomButton} from '@/components';
+import {Score, CustomButton, CustomText} from '@/components';
 import {useDeepLinkStore, useAuthStore, useUserStore} from '@/stores';
 import {showToast, decryptPayload} from '@/utils';
 import {signAndSendTransaction} from '../api';
@@ -123,7 +123,7 @@ export const Result = () => {
           onPress={handleSendData}
           title="Save score"
         />
-        <Text style={styles.orText}>or</Text>
+        <CustomText style={styles.orText}>or</CustomText>
         <CustomButton
           disabled={loading}
           onPress={handleNavigateLandingPage}

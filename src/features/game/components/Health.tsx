@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
-import { Heart } from './Heart';
+import {Heart} from './Heart';
 
-import { useHealth } from '../stores';
+import {useHealth} from '../stores';
 
 export const Health = () => {
-  const { health } = useHealth();
+  const {health} = useHealth();
   const TOTAL_HEALTH: number[] = Array.from(Array(health), (_, i) => i++);
 
   return (
     <View style={styles.container}>
-      {TOTAL_HEALTH.map((i) => (
+      {TOTAL_HEALTH.map(i => (
         <Heart id={i + 1} key={i} />
       ))}
     </View>

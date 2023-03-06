@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {CustomText} from './CustomText';
 
 type Props = {
   children: string;
@@ -8,7 +9,7 @@ type Props = {
 export const Chip = ({children}: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{children}</Text>
+      <CustomText style={styles.text}>{children}</CustomText>
     </View>
   );
 };
@@ -17,12 +18,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1d3557',
     borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
   },
   text: {
     color: '#fff',
-    fontSize: 12,
-    textAlign: 'center',
+    fontSize: 20,
   },
 });

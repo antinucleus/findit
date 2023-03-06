@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
+import {CustomText} from './CustomText';
 
 const WIDTH = Dimensions.get('window').width;
 const size = WIDTH / 4;
@@ -11,28 +12,20 @@ type Props = {
 export const Score = ({score}: Props) => {
   return (
     <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text style={styles.scoreText}>Your score</Text>
-        <Text style={styles.scoreText}> {score} </Text>
-      </View>
+      <CustomText style={styles.scoreText}>Your score</CustomText>
+      <CustomText style={styles.scoreText}> {score} </CustomText>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: 'transparent',
     borderRadius: size / 2,
     width: size,
     height: size,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  innerContainer: {
-    backgroundColor: '#000',
-    borderRadius: size / 2,
-    width: size - 4,
-    height: size - 4,
     justifyContent: 'center',
     alignItems: 'center',
   },

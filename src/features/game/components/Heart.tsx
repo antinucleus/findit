@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Animated, {
   useAnimatedStyle,
@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { useHealth } from '../stores';
+import {useHealth} from '../stores';
 
 // TODO : Heart style shadow does not work properly on android
 // fix shadow using elevation
@@ -16,8 +16,8 @@ type Props = {
   id: number;
 };
 
-export const Heart = ({ id }: Props) => {
-  const { health, isDecreased } = useHealth();
+export const Heart = ({id}: Props) => {
+  const {health, isDecreased} = useHealth();
 
   const heartPosition = useSharedValue(0);
 

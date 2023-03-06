@@ -1,5 +1,5 @@
 import React, {useState, useLayoutEffect} from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useWalletStore, useUserStore} from '@/stores';
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   usernameTextInput: {
+    fontFamily: 'CrimsonText-Regular',
     padding: 10,
     borderWidth: 1,
     width: 200,

@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import {TouchableOpacity, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
+import {CustomText} from './CustomText';
 
 type Props = {
   title: string;
@@ -24,7 +19,7 @@ export const CustomButton = ({style, title, disabled, onPress}: Props) => {
           {backgroundColor: disabled ? '#343a40' : '#00f'},
           style,
         ]}>
-        <Text style={styles.title}>{title}</Text>
+        <CustomText style={styles.title}>{title}</CustomText>
       </Animated.View>
     </TouchableOpacity>
   );
@@ -40,7 +35,8 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   title: {
-    fontSize: 16,
+    fontFamily: 'CrimsonText-Italic',
+    fontSize: 19,
     color: '#FFF',
   },
 });
