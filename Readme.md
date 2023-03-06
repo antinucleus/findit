@@ -7,7 +7,7 @@
 - If you want to deploy smart-contract of this app on local, you can access from [here](https://github.com/antinucleus/findit-solana-smart-contract)
 
 ## How can you install it ?
-> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases/tag/v0.1.0)
+> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases)
 
 > Or you can clone this repo
 
