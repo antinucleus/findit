@@ -1,12 +1,12 @@
-import React, {useState, useLayoutEffect, useEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {View, StyleSheet, Text, TextInput} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import {useWalletStore, useUserStore} from '@/stores';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 import {formatPublicKey, setUsername, resetStores} from '@/utils';
-import {Chip} from '@/components';
 import {CustomButton} from '@/components';
+import {Info} from '../components';
 
 export const Landing = () => {
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
@@ -40,25 +40,21 @@ export const Landing = () => {
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
-        <View style={styles.walletInfoContainer}>
-          <Text style={styles.walletText}>Wallet Address</Text>
-          <Chip>
-            {formatPublicKey(phantomWalletPublicKey?.toBase58() || '')}
-          </Chip>
-        </View>
-        <View style={styles.userInfoContainer}>
-          <Text style={styles.usernameText}>Username</Text>
-          {user ? (
-            <Chip>{input || ''}</Chip>
-          ) : (
-            <TextInput
-              style={styles.usernameTextInput}
-              placeholder="Username"
-              value={input}
-              onChangeText={handleUsernameChange}
-            />
-          )}
-        </View>
+        <Info
+          title="Wallet Address"
+          content={formatPublicKey(phantomWalletPublicKey?.toBase58() || '')}
+        />
+        {user ? (
+          <Info title="Username" content={input || ''} />
+        ) : (
+          <TextInput
+            placeholderTextColor="#fff"
+            style={styles.usernameTextInput}
+            placeholder="Enter your username"
+            value={input}
+            onChangeText={handleUsernameChange}
+          />
+        )}
       </View>
 
       <View style={styles.buttonContainer}>
@@ -81,10 +77,11 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#5390D9',
+    backgroundColor: '#000',
   },
   infoContainer: {
-    flex: 2,
+    flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -92,6 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10,
+    marginTop: 40,
   },
   usernameText: {
     fontSize: 20,
@@ -104,6 +102,8 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 10,
     margin: 10,
+    borderColor: '#fff',
+    color: '#fff',
   },
   walletInfoContainer: {
     justifyContent: 'center',

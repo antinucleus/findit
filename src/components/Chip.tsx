@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1d3557',
     borderRadius: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
   },
   text: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 12,
     textAlign: 'center',
   },
 });

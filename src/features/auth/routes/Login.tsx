@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {View, Linking, StyleSheet, Text} from 'react-native';
+import {View, Linking, StyleSheet, Text, Dimensions} from 'react-native';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 import {PublicKey} from '@solana/web3.js';
@@ -12,6 +12,14 @@ import {
 } from '@/stores';
 import {decryptPayload, connectToWallet, showToast, getUsername} from '@/utils';
 import {CustomButton, Chip, Loading} from '@/components';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
+
+const WINDOW_WIDTH = Dimensions.get('window').width;
 
 export const Login = () => {
   const {dappKeyPair, setSharedSecret, setSession} = useAuthStore();
@@ -19,6 +27,21 @@ export const Login = () => {
   const {setPhantomWalletPublicKey} = useWalletStore();
   const {user, setUser} = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const connectToWalletButtonPosition = useSharedValue(-WINDOW_WIDTH);
+  const containerBackgroundColor = useSharedValue('#fff');
+
+  const connectToWalletAnimation = useAnimatedStyle(() => {
+    return {
+      transform: [{translateX: connectToWalletButtonPosition.value}],
+    };
+  });
+
+  const containerBackgroundAnimation = useAnimatedStyle(() => {
+    return {
+      backgroundColor: containerBackgroundColor.value,
+    };
+  });
 
   useLayoutEffect(() => {
     const get = async () => {
@@ -43,6 +66,17 @@ export const Login = () => {
     getInitialUrl();
 
     Linking.addEventListener('url', ({url}) => setDeepLink(url));
+
+    setTimeout(() => {
+      connectToWalletButtonPosition.value = withSpring(0, {
+        mass: 1,
+        damping: 12,
+      });
+
+      containerBackgroundColor.value = withTiming('#000', {
+        duration: 1000,
+      });
+    }, 200);
 
     return () => {
       Linking.removeAllListeners('url');
@@ -113,7 +147,7 @@ export const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, containerBackgroundAnimation]}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Find It</Text>
       </View>
@@ -131,12 +165,13 @@ export const Login = () => {
           )}
 
           <CustomButton
+            style={connectToWalletAnimation}
             onPress={handleConnectToWallet}
             title="Connect to wallet"
           />
         </View>
       )}
-    </View>
+    </Animated.View>
   );
 };
 
@@ -145,23 +180,23 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#023e8a',
+    // backgroundColor: '#fff',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
   buttonContainer: {},
   container: {
-    backgroundColor: '#0096c7',
+    // backgroundColor: '#fff',
     justifyContent: 'center',
     flex: 1,
   },
   title: {
     color: '#fff',
-    fontSize: 25,
+    fontSize: 24,
   },
   titleContainer: {
     flex: 1,
-    backgroundColor: '#0096c7',
+    // backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },

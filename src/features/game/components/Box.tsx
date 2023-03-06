@@ -63,7 +63,7 @@ export const Box = ({id, color, disableClick}: Props) => {
   return (
     <TouchableHighlight
       activeOpacity={0.3}
-      underlayColor="#c5c4ff"
+      underlayColor="#000"
       disabled={disableClick || disableSelf || health === 0}
       onPress={handleOnPress}
       style={[

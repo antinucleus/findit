@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: '#FFF',
-    backgroundColor: '#c5c4ff',
+    backgroundColor: '#000',
   },
   divider: {
     width: '100%',

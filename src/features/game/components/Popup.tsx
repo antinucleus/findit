@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-native-modal';
-import { View, Text } from 'react-native';
+import {View, Text} from 'react-native';
 
 export const Popup = () => {
   return (
@@ -14,12 +14,9 @@ export const Popup = () => {
         animationOutTiming={600}
         backdropTransitionInTiming={600}
         backdropTransitionOutTiming={600}
-        isVisible={true}
-      >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Text>I am the modal content!</Text>
+        isVisible={true}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>Modal content will be here</Text>
         </View>
       </Modal>
     </View>

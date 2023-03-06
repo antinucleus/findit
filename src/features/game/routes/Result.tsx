@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Linking} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import {useScore} from '../stores';
-import {Loading, CustomButton} from '@/components';
+import {Score, CustomButton} from '@/components';
 import {useDeepLinkStore, useAuthStore, useUserStore} from '@/stores';
 import {showToast, decryptPayload} from '@/utils';
 import {signAndSendTransaction} from '../api';
@@ -17,6 +17,7 @@ export const Result = () => {
   const {user} = useUserStore();
   const {score} = useScore();
   const [loading, setLoading] = useState<boolean>(false);
+  const [saveScore, setSaveScore] = useState(false);
 
   useEffect(() => {
     const getInitialUrl = async () => {
@@ -57,7 +58,8 @@ export const Result = () => {
       }
     }
 
-    if (/onSignAndSendTransaction/.test(url.pathname)) {
+    if (/onSignAndSendTransaction/.test(url.pathname) && saveScore) {
+      console.log('url pathname', url.pathname);
       decryptPayload(params.get('data')!, params.get('nonce')!, sharedSecret);
 
       showToast({
@@ -84,7 +86,9 @@ export const Result = () => {
 
       try {
         await signAndSendTransaction(data);
+        setSaveScore(true);
       } catch (error) {
+        setSaveScore(false);
         showToast({
           title: 'Error',
           description: 'Error occured while sending transaction',
@@ -93,6 +97,8 @@ export const Result = () => {
       }
       setLoading(false);
     } else {
+      setSaveScore(false);
+
       showToast({
         title: 'Missing information',
         description: 'Username or score are not found',
@@ -109,7 +115,7 @@ export const Result = () => {
   return (
     <View style={styles.container}>
       <View style={styles.scoreTextContainer}>
-        <Text style={styles.scoreText}>Your Score {score} </Text>
+        <Score score={score} />
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    backgroundColor: '#457b9d',
+    backgroundColor: '#000',
     flex: 1,
   },
   orText: {
