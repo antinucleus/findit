@@ -7,7 +7,7 @@
 - If you want to deploy smart-contract of this app on local, you can access from [here](https://github.com/antinucleus/findit-solana-smart-contract)
 
 ## How can you install it ?
-> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases/tag/v0.1.0)
+> You can install directly from [findit releases](https://github.com/antinucleus/findit/releases)
 
 > Or you can clone this repo
 
@@ -19,6 +19,11 @@
 - You have to install Phantom wallet on your device and **set Phantom wallet network to devnet**
 - Also you should have SOL in your account. For testing you can import this private key to Phantom wallet
 `2tURF4eRVVBYMX7yrs5o6skd9FDpK1nP4UZx3EaSKPGEb8yPFPL6ieJYxGE8hQRABwE3o3bNjm4yph7evVsBwCts`
+- You can access this key by scannig the QR code 
+<div align="center">
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/wallet-address-for-test.png" width="150" height="150"/>
+</div>
+
 - After that run the findit game
 - Press connect to wallet button
 - If Phantom wallet is installed on your device, app will ask for connection
@@ -28,31 +33,31 @@
 - If not installed,app redirects you to download link
 - After connection, for first time you have to enter your username
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/enter-user-name.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/enter-user-name.jpg" width="250" height="500"/>
 
 - Your username will be automatically read from the store in the next use
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/later-start.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/later-start.jpg" width="250" height="500"/>
 
 - When enter your username start button will be active. Press start button and play the game
 
 ## The Logic of The Game
 - Game shows you box collecttions for each level and some of this box has green color. You have to memorize these boxes
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/memorized-boxes.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/memorized-boxes.jpg" width="250" height="500"/>
 
 - After a short time all of the boxes will have white color
 - Click the boxes that you memorized them. When click the box its color will be blue
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/user-selected-boxes.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/user-selected-boxes.jpg" width="250" height="500"/>
 
 - You have 3 rights. When you select wrong boxes your rights will be decreased
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/wrong-boxes.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/wrong-boxes.jpg" width="250" height="500"/>
 
 - When you lose your all rights you will see your score
 
-<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/score-screen.png" width="250" height="500"/>
+<img src="https://github.com/antinucleus/repo-medias/blob/main/findit/score-screen.jpg" width="250" height="500"/>
 
 - If you press save score button, app redirect you to Pahtom wallet. If you approve your score will be stored on solana network
 
