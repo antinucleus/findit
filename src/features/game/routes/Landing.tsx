@@ -1,12 +1,18 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect, useEffect} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useWalletStore, useUserStore} from '@/stores';
 import {PrivateRoutesScreenNavigationProp} from '@/types';
 import {formatPublicKey, setUsername, resetStores} from '@/utils';
-import {CustomButton} from '@/components';
-import {Info} from '../components';
+import {CustomButton, CustomText} from '@/components';
+import {Info, ScoreList} from '../components';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
 export const Landing = () => {
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
@@ -18,6 +24,23 @@ export const Landing = () => {
     if (user) {
       setInput(user);
     }
+  }, []);
+
+  const usernameTextInputColor = useSharedValue('#fff');
+  const usernameTextInputAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      borderBottomColor: usernameTextInputColor.value,
+    };
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      usernameTextInputColor.value = withRepeat(
+        withTiming('#f80', {duration: 500}),
+        10,
+        true,
+      );
+    }, 300);
   }, []);
 
   const handleStartGame = async () => {
@@ -47,14 +70,24 @@ export const Landing = () => {
         {user ? (
           <Info title="Username" content={input || ''} />
         ) : (
-          <TextInput
-            placeholderTextColor="#fff"
-            style={styles.usernameTextInput}
-            placeholder="Enter your username"
-            value={input}
-            onChangeText={handleUsernameChange}
-          />
+          <>
+            <TextInput
+              placeholderTextColor="#fff"
+              style={styles.usernameTextInput}
+              placeholder="Enter your username"
+              value={input}
+              onChangeText={handleUsernameChange}
+            />
+            <Animated.View
+              style={[usernameTextInputAnimatedStyle, styles.divider]}
+            />
+          </>
         )}
+      </View>
+
+      <View style={styles.scoreListContainer}>
+        <CustomText style={styles.lastScoreLabel}>3 Highest Scores</CustomText>
+        <ScoreList page={1} pageSize={3} />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -71,6 +104,7 @@ export const Landing = () => {
 const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
@@ -79,11 +113,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000',
   },
+  divider: {
+    borderWidth: 1,
+    width: '50%',
+  },
   infoContainer: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  lastScoreLabel: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  scoreListContainer: {
+    flex: 1,
+    width: '100%',
   },
   userInfoContainer: {
     justifyContent: 'center',
@@ -103,8 +149,9 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 10,
     margin: 10,
-    borderColor: '#fff',
     color: '#fff',
+    borderColor: '#fff',
+    // width: '100%',
   },
   walletInfoContainer: {
     justifyContent: 'center',

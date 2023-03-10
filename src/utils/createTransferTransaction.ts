@@ -79,7 +79,7 @@ export const createTransferTransaction = async (data: SendData) => {
 
   transaction.feePayer = phantomWalletPublicKey;
 
-  const anyTransaction: any = transaction;
+  const anyTransaction: Transaction = transaction;
 
   anyTransaction.recentBlockhash = (
     await connection.getLatestBlockhash()

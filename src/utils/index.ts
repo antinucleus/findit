@@ -12,3 +12,4 @@ export {resetStores} from './resetStores';
 export {getUsername, setUsername, resetUsername} from './storage';
 export {formatPublicKey} from './formatPublicKey';
 export {levelData} from './levelData';
+export {formatDate} from './formatDate';

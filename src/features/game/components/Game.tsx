@@ -24,7 +24,7 @@ export const Game = () => {
   const {isWin, setisWin} = useUserState();
   const {score, setScore} = useScore();
   const {setisStarted} = useGameState();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
 
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
 
@@ -41,6 +41,9 @@ export const Game = () => {
 
         if (data.columnCount === 0 && data.rowCount === 0) {
           setShowModal(true);
+          setTimeout(() => {
+            navigation.navigate('Result');
+          }, 700);
         } else {
           setRowsColumns(data);
 

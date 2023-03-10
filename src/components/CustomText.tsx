@@ -14,5 +14,6 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontFamily: 'CrimsonText-Regular',
+    color: '#fff',
   },
 });
