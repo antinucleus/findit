@@ -1,18 +1,33 @@
 import React, {useState, useLayoutEffect, useEffect} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
-import {useWalletStore, useUserStore} from '@/stores';
-import {PrivateRoutesScreenNavigationProp} from '@/types';
-import {formatPublicKey, setUsername, resetStores} from '@/utils';
-import {CustomButton, CustomText} from '@/components';
-import {Info, ScoreList} from '../components';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
+
+import {useWalletStore, useUserStore} from '@/stores';
+import {
+  ICollectionNftData,
+  INftData,
+  PrivateRoutesScreenNavigationProp,
+} from '@/types';
+import {formatPublicKey, setUsername, resetStores} from '@/utils';
+import {CustomButton, CustomText} from '@/components';
+import {Info, ScoreList} from '../components';
+import {connection} from '@/config';
+
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage,
+} from '@metaplex-foundation/js';
+import {Keypair} from '@solana/web3.js';
+// import {uploadMetadata} from '@/utils/uploadMetadata';
+// import {createCollectionNft} from '@/utils/createCollectionNft';
+// import {createNft} from '@/utils/createNft';
 
 export const Landing = () => {
   const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
@@ -59,6 +74,73 @@ export const Landing = () => {
   };
 
   const handleUsernameChange = (text: string) => setInput(text);
+
+  const nftUse = async () => {
+    const keypair = Keypair.generate();
+
+    const metaplex = Metaplex.make(connection)
+      .use(keypairIdentity(keypair))
+      .use(
+        bundlrStorage({
+          address: 'https://devnet.bundlr.network',
+          providerUrl: 'https://api.devnet.solana.com',
+          timeout: 60000,
+        }),
+      );
+
+    const collectionNftData: ICollectionNftData = {
+      name: 'TestCollectionNFT',
+      symbol: 'TEST',
+      description: 'Test Description Collection',
+      sellerFeeBasisPoints: 100,
+      imageFile: 'success.png',
+      isCollection: true,
+      collectionAuthority: keypair,
+    };
+
+    const nftData: INftData = {
+      name: 'Name',
+      symbol: 'SYMBOL',
+      description: 'Description',
+      sellerFeeBasisPoints: 0,
+      imageFile: 'img.png',
+    };
+
+    // example data for updating an existing NFT
+    // const updateNftData: INftData = {
+    //   name: 'Update',
+    //   symbol: 'UPDATE',
+    //   description: 'Update Description',
+    //   sellerFeeBasisPoints: 100,
+    //   imageFile: 'img.png',
+    // };
+
+    // upload the NFT data and get the URI for the metadata
+    // const collectionUri = await uploadMetadata(metaplex, collectionNftData);
+
+    // // create a collection NFT using the helper function and the URI from the metadata
+    // const collectionNft = await createCollectionNft(
+    //   metaplex,
+    //   collectionUri,
+    //   collectionNftData,
+    // );
+
+    // // upload the NFT data and get the URI for the metadata
+    // const uri = await uploadMetadata(metaplex, nftData);
+
+    // create an NFT using the helper function and the URI from the metadata
+    // const nft = await createNft(
+    //   metaplex,
+    //   uri,
+    //   nftData,
+    //   collectionNft.mint.address,
+    // );
+
+    // // upload updated NFT data and get the new URI for the metadata
+    // const updatedUri = await uploadMetadata(metaplex, updateNftData);
+  };
+
+  // phantomWalletPublicKey
 
   return (
     <View style={styles.container}>

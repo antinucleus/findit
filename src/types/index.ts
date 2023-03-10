@@ -9,3 +9,5 @@ export {
 } from './PublicRoutes';
 
 export {SendData} from './SendData';
+export {ICollectionNftData} from './ICollectionNftData';
+export {INftData} from './INFTData';

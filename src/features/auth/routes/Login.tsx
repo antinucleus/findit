@@ -180,13 +180,11 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // backgroundColor: '#fff',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
   buttonContainer: {},
   container: {
-    // backgroundColor: '#fff',
     justifyContent: 'center',
     flex: 1,
   },
@@ -197,7 +195,6 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    // backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
