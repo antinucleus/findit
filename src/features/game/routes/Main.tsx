@@ -22,7 +22,6 @@ export const Main = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#FFF',
     backgroundColor: '#000',
   },
   divider: {
@@ -34,10 +33,7 @@ const styles = StyleSheet.create({
     height: '10%',
   },
   game: {
-    opacity: 1,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   timer: {
     position: 'absolute',

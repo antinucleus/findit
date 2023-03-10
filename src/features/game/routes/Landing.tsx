@@ -131,6 +131,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+  showAllButtonContainer: {
+    alignItems: 'center',
+  },
   userInfoContainer: {
     justifyContent: 'center',
     alignItems: 'center',

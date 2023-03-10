@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import Modal from 'react-native-modal';
 import {View, StyleSheet} from 'react-native';
 
@@ -14,8 +13,8 @@ import {
   useGameState,
 } from '../stores';
 import {resetStores, levelData} from '@/utils';
-import {CustomButton, CustomText, Loading} from '@/components';
-import {PrivateRoutesScreenNavigationProp} from '@/types';
+import {Loading} from '@/components';
+import {Result} from './Result';
 
 export const Game = () => {
   const {selectedIds, setRowsColumns} = useBox();
@@ -25,8 +24,6 @@ export const Game = () => {
   const {score, setScore} = useScore();
   const {setisStarted} = useGameState();
   const [showModal, setShowModal] = useState(false);
-
-  const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
 
   useEffect(() => {
     if (isWin) {
@@ -40,9 +37,8 @@ export const Game = () => {
         const data = levelData();
 
         if (data.columnCount === 0 && data.rowCount === 0) {
-          setShowModal(true);
           setTimeout(() => {
-            navigation.navigate('Result');
+            setShowModal(true);
           }, 700);
         } else {
           setRowsColumns(data);
@@ -53,7 +49,7 @@ export const Game = () => {
     }
   }, [isWin, score]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const data = levelData();
 
     setRowsColumns(data);
@@ -65,7 +61,7 @@ export const Game = () => {
       setisStarted(false);
 
       setTimeout(() => {
-        navigation.navigate('Result');
+        setShowModal(true);
       }, 700);
     }
   }, [health, setisWin]);
@@ -79,14 +75,14 @@ export const Game = () => {
     }
   }, [userSelections, setisWin, selectedIds, setRowsColumns]);
 
-  const handleNavigateMain = () => navigation.navigate('Landing');
-
   return isWin ? (
     <Loading />
   ) : (
-    <View>
+    <>
       <Modal
-        backdropColor="#CED4DA"
+        coverScreen
+        style={styles.container}
+        backdropColor="#444"
         backdropOpacity={0.7}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"
@@ -95,24 +91,23 @@ export const Game = () => {
         backdropTransitionInTiming={600}
         backdropTransitionOutTiming={600}
         isVisible={showModal}>
-        <View style={styles.container}>
-          <CustomText style={styles.winText}>You won!!</CustomText>
-          <CustomButton title="Main Page" onPress={handleNavigateMain} />
-        </View>
+        <Result />
       </Modal>
-      <Episode />
-    </View>
+      <View style={styles.episodeContainer}>
+        <Episode />
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    margin: 0,
+    flex: 1,
+  },
+  episodeContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  winText: {
-    color: '#000',
-    fontSize: 22,
   },
 });
