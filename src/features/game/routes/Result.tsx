@@ -44,7 +44,7 @@ export const Result = () => {
     const url = new URL(deepLink);
     const params = url.searchParams;
 
-    if (params.get('errorCode')) {
+    if (params.get('errorCode') && saveScore) {
       const entries: {[k: string]: string} = Object.fromEntries([...params]);
 
       if (entries.errorCode === '4001') {
@@ -53,13 +53,14 @@ export const Result = () => {
           description: 'User rejected the request',
           type: 'error',
         });
+        setSaveScore(false);
+        setDeepLink('');
 
         return;
       }
     }
 
     if (/onSignAndSendTransaction/.test(url.pathname) && saveScore) {
-      console.log('url pathname', url.pathname);
       decryptPayload(params.get('data')!, params.get('nonce')!, sharedSecret);
 
       showToast({
@@ -68,12 +69,15 @@ export const Result = () => {
         type: 'success',
       });
 
+      setSaveScore(false);
+      setDeepLink('');
+
       setTimeout(() => {
         navigation.navigate('Landing');
       }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deepLink]);
+  }, [deepLink, saveScore]);
 
   const handleSendData = async () => {
     if (score && user) {
@@ -85,8 +89,9 @@ export const Result = () => {
       };
 
       try {
-        await signAndSendTransaction(data);
         setSaveScore(true);
+
+        await signAndSendTransaction(data);
       } catch (error) {
         setSaveScore(false);
         showToast({

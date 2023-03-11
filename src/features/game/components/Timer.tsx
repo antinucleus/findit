@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
   time: {
     fontFamily: 'lobstertwo',
     fontSize: 80,
-    color: '#000',
+    color: '#fff',
   },
 });

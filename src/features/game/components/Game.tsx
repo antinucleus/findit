@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
-import Modal from 'react-native-modal';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {Episode} from './Episode';
 import {
@@ -14,16 +14,17 @@ import {
 } from '../stores';
 import {resetStores, levelData} from '@/utils';
 import {Loading} from '@/components';
-import {Result} from './Result';
+import {PrivateRoutesScreenNavigationProp} from '@/types';
 
 export const Game = () => {
+  const navigation = useNavigation<PrivateRoutesScreenNavigationProp>();
+
   const {selectedIds, setRowsColumns} = useBox();
   const {health} = useHealth();
   const {userSelections} = useUserSelections();
   const {isWin, setisWin} = useUserState();
   const {score, setScore} = useScore();
   const {setisStarted} = useGameState();
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (isWin) {
@@ -38,14 +39,12 @@ export const Game = () => {
 
         if (data.columnCount === 0 && data.rowCount === 0) {
           setTimeout(() => {
-            setShowModal(true);
-          }, 700);
-        } else {
-          setRowsColumns(data);
-
-          setisWin(false);
+            navigation.navigate('Result');
+          }, 200);
         }
-      }, 100);
+
+        setisWin(false);
+      }, 500);
     }
   }, [isWin, score]);
 
@@ -61,7 +60,7 @@ export const Game = () => {
       setisStarted(false);
 
       setTimeout(() => {
-        setShowModal(true);
+        navigation.navigate('Result');
       }, 700);
     }
   }, [health, setisWin]);
@@ -76,27 +75,13 @@ export const Game = () => {
   }, [userSelections, setisWin, selectedIds, setRowsColumns]);
 
   return isWin ? (
-    <Loading />
+    <View style={styles.loadingContainer}>
+      <Loading />
+    </View>
   ) : (
-    <>
-      <Modal
-        coverScreen
-        style={styles.container}
-        backdropColor="#444"
-        backdropOpacity={0.7}
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={2000}
-        animationOutTiming={600}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={600}
-        isVisible={showModal}>
-        <Result />
-      </Modal>
-      <View style={styles.episodeContainer}>
-        <Episode />
-      </View>
-    </>
+    <View style={styles.episodeContainer}>
+      <Episode />
+    </View>
   );
 };
 
@@ -106,6 +91,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   episodeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Main, Landing} from '@/features/game/routes';
+import {Main, Landing, Result} from '@/features/game/routes';
 import {PrivateRoutesStackParamList} from '@/types';
 
 const {Navigator, Screen} =
@@ -16,6 +16,7 @@ export const Private = () => {
       }}>
       <Screen name="Landing" component={Landing} />
       <Screen name="Main" component={Main} />
+      <Screen name="Result" component={Result} />
     </Navigator>
   );
 };
