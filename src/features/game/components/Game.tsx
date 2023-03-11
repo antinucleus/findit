@@ -33,8 +33,6 @@ export const Game = () => {
 
         setScore(score + 1);
 
-        console.log({score});
-
         const data = levelData();
 
         if (data.columnCount === 0 && data.rowCount === 0) {

@@ -21,8 +21,6 @@ const deserializeData = (buffer: Buffer): Data => {
   try {
     return borshAccountSchema.decode(buffer);
   } catch (e) {
-    console.log('[Error occured while data deserializing]:', e);
-    console.log(JSON.stringify(e));
     return {username: '', time: '', score: 0};
   }
 };
@@ -73,7 +71,6 @@ export const fetchPage = async (
     return [...datas];
   } catch (error) {
     showToast({title: 'Error', description: 'Error occured', type: 'error'});
-    console.log('[Error @fetchPage]:', error);
     return [];
   }
 };

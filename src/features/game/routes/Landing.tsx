@@ -46,7 +46,6 @@ export const Landing = () => {
   const handleStartGame = async () => {
     if (!user && input) {
       try {
-        console.log('saving');
         await setUsername(input);
         setUser(input);
       } catch (error) {
